@@ -14,7 +14,22 @@
         <div class="login" onclick="openModal('loginModal')">Вход</div>
         <div class="register" onclick="openModal('registerModal')">Регистрация</div>
     </header>
-
+    <header>
+        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
+        <nav>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/catalog">Каталог</a></li>
+                <li><a href="/about">О нас</a></li>
+                <li><a href="/faq">Частые вопросы</a></li>
+            </ul>
+        </nav>
+        <div class="cart">
+            <a href="/cart">Корзина ({{ cart_items|length }})</a>
+        </div>
+        <div class="login" onclick="openModal('loginModal')">Вход</div>
+        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
+    </header>
     <section class="counter">
         <p>Количество посещений: {{ visitor_count }}</p>
     </section>
@@ -56,7 +71,7 @@
         <p>Все права защищены</p>
     </footer>
 
-    <!-- Модальные окна для входа и регистрации -->
+    <!-- Модальные окна -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
