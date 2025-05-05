@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали товара</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
+        <div class="cart" onclick="window.location.href = '/cart'">Корзина (0)</div>
+        <div class="login" onclick="window.location.href = '/login'">Вход</div>
+    </header>
+
+    <section class="product-details">
+        <h2>{{ product['name'] }}</h2>
+        <p>{{ product['description'] }}</p>
+        <p>Цена: {{ product['price'] }} руб</p>
+    </section>
+
+    <footer>
+        <p>Все права защищены</p>
+    </footer>
+</body>
+</html>
