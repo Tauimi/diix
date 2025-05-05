@@ -9,7 +9,9 @@
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
+        <div class="logo" onclick="window.location.href = '/'">
+            <span>SmartBox</span>
+        </div>
         <nav>
             <ul>
                 <li><a href="/">Главная</a></li>
@@ -25,36 +27,53 @@
         <div class="register" onclick="openModal('registerModal')">Регистрация</div>
     </header>
 
-    <section class="counter">
-        <p>Количество посещений: {{ visitor_count }}</p>
-    </section>
-
-    <section class="carousel">
-        <div class="carousel-container">
-            {% for item in news %}
-                <div class="carousel-item">
-                    <h3>{{ item.title }}</h3>
-                    <p>{{ item.content }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-
     <section class="products">
         <h2>Наши товары</h2>
         <ul>
             {% for product in products %}
                 <li>
-                    <a href="{{ url_for('product_detail', product_id=product['id']) }}">
+                    <div class="product-container" onclick="showProductDetails({{ product['id'] }})">
                         <img src="{{ url_for('static', filename='images/product.jpg') }}" alt="{{ product['name'] }}">
                         <h3>{{ product['name'] }}</h3>
                         <p>{{ product['description'] }}</p>
                         <p>Цена: {{ product['price'] }} руб</p>
-                    </a>
+                    </div>
                     <button onclick="addToCart({{ product['id'] }})">Добавить в корзину</button>
                 </li>
             {% endfor %}
         </ul>
+    </section>
+ <!-- Модальное окно для товара -->
+ <div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-header">
+            <h2 id="productName">Название товара</h2>
+        </div>
+        <div class="modal-body">
+            <p id="productDescription">Описание товара</p>
+            <p id="productPrice">Цена товара</p>
+        </div>
+        <div class="modal-footer">
+            <button onclick="addToCart(currentProduct.id)">Добавить в корзину</button>
+        </div>
+    </div>
+</div>
+
+    <section class="news">
+        <h2>Новостная лента</h2>
+        <div class="news-carousel">
+            <div class="news-container">
+                {% for item in news %}
+                    <div class="news-item">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
     </section>
 
     <!-- Вставляем футер -->
@@ -62,5 +81,6 @@
 
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/newsCarousel.js') }}"></script>
 </body>
 </html>

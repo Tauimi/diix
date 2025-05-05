@@ -10,15 +10,21 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 20px 40px;
-    background-color: #0044cc;
+    background: linear-gradient(45deg, #0044cc, #00ccff);
     color: white;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-header .logo {
-    font-size: 24px;
+header .logo span {
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header .logo span:hover {
+    transform: scale(1.1);
 }
 
 header nav ul {
@@ -28,95 +34,154 @@ header nav ul {
 }
 
 header nav ul li {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 header nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
+    font-size: 18px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 header nav ul li a:hover {
     color: #ffcc00;
+    transform: translateY(-2px);
 }
 
-/* Стиль для футера */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 40px 20px;
-    font-size: 14px;
-}
-
-.footer-content {
+header .cart, header .login, header .register {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.footer-section {
-    flex: 1;
-    padding: 20px;
-    min-width: 220px;
-}
-
-.footer-section h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.footer-section ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-    color: #ddd;
-    text-decoration: none;
-}
-
-.footer-section ul li a:hover {
+header .cart:hover, header .login:hover, header .register:hover {
     color: #ffcc00;
+    transform: scale(1.1);
 }
 
-.footer-bottom {
-    text-align: center;
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body {
     margin-top: 20px;
-    font-size: 12px;
-    border-top: 1px solid #444;
-    padding-top: 10px;
 }
 
-.footer-bottom p {
-    margin: 0;
+.modal-footer {
+    text-align: right;
+    margin-top: 20px;
 }
 
-/* Стиль для новостной ленты */
+/* Стиль для карусели новостей */
+.news-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .news-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    transition: transform 0.5s ease;
 }
 
 .news-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    margin-right: 20px;
 }
 
 .news-item h3 {
-    margin: 0;
-    font-size: 20px;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .news-item p {
     font-size: 16px;
     color: #555;
+}
+
+.news-carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1;
+}
+
+.news-carousel .prev {
+    left: 10px;
+}
+
+.news-carousel .next {
+    right: 10px;
+}
+
+.news-carousel button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Стиль для адаптивности */
+@media (max-width: 768px) {
+    .news-item h3 {
+        font-size: 20px;
+    }
+    
+    .news-item p {
+        font-size: 14px;
+    }
 }

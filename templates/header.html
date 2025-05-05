@@ -1,0 +1,20 @@
+
+<!-- header.html -->
+<header>
+    <div class="logo" onclick="window.location.href = '/'">
+        <span>SmartBox</span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/about">О нас</a></li>
+            <li><a href="/faq">Частые вопросы</a></li>
+        </ul>
+    </nav>
+    <div class="cart">
+        <a href="/cart">Корзина ({{ cart_items|length }})</a>
+    </div>
+    <div class="login" onclick="openModal('loginModal')">Вход</div>
+    <div class="register" onclick="openModal('registerModal')">Регистрация</div>
+</header>
