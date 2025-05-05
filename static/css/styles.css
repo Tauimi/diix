@@ -9,23 +9,44 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
-    background-color: #333;
+    padding: 20px 40px;
+    background-color: #0044cc;
     color: white;
+    align-items: center;
 }
 
 header .logo {
+    font-size: 24px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-header .cart, header .login {
-    cursor: pointer;
+header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
 }
 
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* Стиль для футера */
 footer {
     background-color: #333;
     color: white;
-    padding: 40px 0;
+    padding: 40px 20px;
     font-size: 14px;
 }
 
@@ -61,7 +82,7 @@ footer {
 }
 
 .footer-section ul li a:hover {
-    text-decoration: underline;
+    color: #ffcc00;
 }
 
 .footer-bottom {
@@ -74,4 +95,28 @@ footer {
 
 .footer-bottom p {
     margin: 0;
+}
+
+/* Стиль для новостной ленты */
+.news-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.news-item h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.news-item p {
+    font-size: 16px;
+    color: #555;
 }

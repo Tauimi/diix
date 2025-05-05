@@ -29,30 +29,15 @@
         <p>Количество посещений: {{ visitor_count }}</p>
     </section>
 
-    <!-- Фильтрация и сортировка товаров -->
-    <section class="filter">
-        <form action="/catalog" method="GET">
-            <label for="category">Категория:</label>
-            <select name="category" id="category">
-                <option value="all">Все товары</option>
-                <option value="tv">Телевизоры</option>
-                <option value="fridge">Холодильники</option>
-                <option value="washing_machine">Стиральные машины</option>
-            </select>
-
-            <label for="sort">Сортировать по:</label>
-            <select name="sort" id="sort">
-                <option value="price_asc">Цена: по возрастанию</option>
-                <option value="price_desc">Цена: по убыванию</option>
-                <option value="name_asc">По имени: A-Z</option>
-                <option value="name_desc">По имени: Z-A</option>
-            </select>
-
-            <label for="search">Поиск:</label>
-            <input type="text" name="search" id="search" placeholder="Поиск по названию" value="{{ search_query }}">
-
-            <button type="submit">Применить</button>
-        </form>
+    <section class="carousel">
+        <div class="carousel-container">
+            {% for item in news %}
+                <div class="carousel-item">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </section>
 
     <section class="products">
@@ -72,45 +57,8 @@
         </ul>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>О компании</h3>
-                <p>Мы предоставляем качественную электронику и бытовую технику с доставкой по всей стране.</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <ul>
-                    <li>Телефон: +7 800 555-35-35</li>
-                    <li>Email: info@store.com</li>
-                    <li>Адрес: г. Москва, ул. Примерная, д. 1</li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Социальные сети</h3>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Полезные ссылки</h3>
-                <ul>
-                    <li><a href="/about">О нас</a></li>
-                    <li><a href="/faq">Частые вопросы</a></li>
-                    <li><a href="/privacy-policy">Политика конфиденциальности</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 Электроника и Бытовая Техника | Все права защищены</p>
-        </div>
-    </footer>
+    <!-- Вставляем футер -->
+    {% include 'footer.html' %}
 
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>

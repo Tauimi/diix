@@ -4,23 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Частые вопросы</title>
+    <title>Часто задаваемые вопросы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
         <div class="logo" onclick="window.location.href = '/'">Логотип</div>
+        <nav>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/catalog">Каталог</a></li>
+                <li><a href="/about">О нас</a></li>
+                <li><a href="/faq">Часто задаваемые вопросы</a></li>
+            </ul>
+        </nav>
+        <div class="cart">
+            <a href="/cart">Корзина ({{ cart_items|length }})</a>
+        </div>
+        <div class="login" onclick="openModal('loginModal')">Вход</div>
+        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
     </header>
 
     <section class="faq">
-        <h2>Частые вопросы</h2>
+        <h2>Часто задаваемые вопросы</h2>
         <ul>
-            <li><strong>Как оформить заказ?</strong> Для этого просто выберите товар и добавьте его в корзину.</li>
-            <li><strong>Какие способы оплаты доступны?</strong> Мы принимаем карты, наличные при получении и другие способы.</li>
+            <li><strong>Как оформить заказ?</strong> — Для оформления заказа выберите товар, добавьте его в корзину и перейдите к оформлению.</li>
+            <li><strong>Какие способы оплаты доступны?</strong> — Мы принимаем оплату через банковские карты, электронные деньги и наложенный платеж.</li>
+            <li><strong>Как сделать возврат товара?</strong> — Для возврата товара свяжитесь с нашей службой поддержки в течение 14 дней после получения заказа.</li>
         </ul>
     </section>
 
-    <footer>
-        <p>Все права защищены</p>
-    </footer>
+    <!-- Вставляем футер -->
+    {% include 'footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 </body>
 </html>

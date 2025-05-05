@@ -4,23 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог товаров</title>
+    <title>Каталог</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
         <div class="logo" onclick="window.location.href = '/'">Логотип</div>
-        <div class="cart" onclick="window.location.href = '/cart'">Корзина ({{ cart_items|length }})</div>
-        <div class="login" onclick="window.location.href = '/login'">Вход</div>
+        <nav>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/catalog">Каталог</a></li>
+                <li><a href="/about">О нас</a></li>
+                <li><a href="/faq">Частые вопросы</a></li>
+            </ul>
+        </nav>
+        <div class="cart">
+            <a href="/cart">Корзина ({{ cart_items|length }})</a>
+        </div>
+        <div class="login" onclick="openModal('loginModal')">Вход</div>
+        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
     </header>
 
     <section class="filter">
         <form action="/catalog" method="GET">
+            <label for="category">Категория:</label>
+            <select name="category" id="category">
+                <option value="all">Все товары</option>
+                <option value="tv">Телевизоры</option>
+                <option value="fridge">Холодильники</option>
+                <option value="washing_machine">Стиральные машины</option>
+            </select>
+
             <label for="sort">Сортировать по:</label>
             <select name="sort" id="sort">
                 <option value="price_asc">Цена: по возрастанию</option>
                 <option value="price_desc">Цена: по убыванию</option>
+                <option value="name_asc">По имени: A-Z</option>
+                <option value="name_desc">По имени: Z-A</option>
             </select>
+
+            <label for="search">Поиск:</label>
+            <input type="text" name="search" id="search" placeholder="Поиск по названию" value="{{ search_query }}">
+
             <button type="submit">Применить</button>
         </form>
     </section>
@@ -31,6 +56,7 @@
             {% for product in products %}
                 <li>
                     <a href="{{ url_for('product_detail', product_id=product['id']) }}">
+                        <img src="{{ url_for('static', filename='images/product.jpg') }}" alt="{{ product['name'] }}">
                         <h3>{{ product['name'] }}</h3>
                         <p>{{ product['description'] }}</p>
                         <p>Цена: {{ product['price'] }} руб</p>
@@ -41,10 +67,10 @@
         </ul>
     </section>
 
-    <footer>
-        <p>Все права защищены</p>
-    </footer>
+    <!-- Вставляем футер -->
+    {% include 'footer.html' %}
 
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 </body>
 </html>
