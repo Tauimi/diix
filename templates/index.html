@@ -10,12 +10,6 @@
 <body>
     <header>
         <div class="logo" onclick="window.location.href = '/'">Логотип</div>
-        <div class="cart" onclick="window.location.href = '/cart'">Корзина ({{ cart_items|length }})</div>
-        <div class="login" onclick="openModal('loginModal')">Вход</div>
-        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
-    </header>
-    <header>
-        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
         <nav>
             <ul>
                 <li><a href="/">Главная</a></li>
@@ -30,25 +24,35 @@
         <div class="login" onclick="openModal('loginModal')">Вход</div>
         <div class="register" onclick="openModal('registerModal')">Регистрация</div>
     </header>
+
     <section class="counter">
         <p>Количество посещений: {{ visitor_count }}</p>
     </section>
 
-    <!-- Новостная лента -->
-    <section class="news">
-        <h2>Новости</h2>
-        <ul>
-            {% for item in news %}
-                <li>
-                    <h3>{{ item.title }}</h3>
-                    <p>{{ item.content }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </section>
+    <!-- Фильтрация и сортировка товаров -->
+    <section class="filter">
+        <form action="/catalog" method="GET">
+            <label for="category">Категория:</label>
+            <select name="category" id="category">
+                <option value="all">Все товары</option>
+                <option value="tv">Телевизоры</option>
+                <option value="fridge">Холодильники</option>
+                <option value="washing_machine">Стиральные машины</option>
+            </select>
 
-    <section class="carousel">
-        <div>Новости и Скидки</div>
+            <label for="sort">Сортировать по:</label>
+            <select name="sort" id="sort">
+                <option value="price_asc">Цена: по возрастанию</option>
+                <option value="price_desc">Цена: по убыванию</option>
+                <option value="name_asc">По имени: A-Z</option>
+                <option value="name_desc">По имени: Z-A</option>
+            </select>
+
+            <label for="search">Поиск:</label>
+            <input type="text" name="search" id="search" placeholder="Поиск по названию" value="{{ search_query }}">
+
+            <button type="submit">Применить</button>
+        </form>
     </section>
 
     <section class="products">
@@ -57,6 +61,7 @@
             {% for product in products %}
                 <li>
                     <a href="{{ url_for('product_detail', product_id=product['id']) }}">
+                        <img src="{{ url_for('static', filename='images/product.jpg') }}" alt="{{ product['name'] }}">
                         <h3>{{ product['name'] }}</h3>
                         <p>{{ product['description'] }}</p>
                         <p>Цена: {{ product['price'] }} руб</p>
@@ -68,37 +73,44 @@
     </section>
 
     <footer>
-        <p>Все права защищены</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О компании</h3>
+                <p>Мы предоставляем качественную электронику и бытовую технику с доставкой по всей стране.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 800 555-35-35</li>
+                    <li>Email: info@store.com</li>
+                    <li>Адрес: г. Москва, ул. Примерная, д. 1</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Полезные ссылки</h3>
+                <ul>
+                    <li><a href="/about">О нас</a></li>
+                    <li><a href="/faq">Частые вопросы</a></li>
+                    <li><a href="/privacy-policy">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Электроника и Бытовая Техника | Все права защищены</p>
+        </div>
     </footer>
-
-    <!-- Модальные окна -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Вход</h2>
-            <form action="/login" method="POST">
-                <label for="username">Имя пользователя:</label>
-                <input type="text" id="username" name="username" required><br>
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="password" required><br>
-                <button type="submit">Войти</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('registerModal')">&times;</span>
-            <h2>Регистрация</h2>
-            <form>
-                <label for="reg_username">Имя пользователя:</label>
-                <input type="text" id="reg_username" required><br>
-                <label for="reg_password">Пароль:</label>
-                <input type="password" id="reg_password" required><br>
-                <button type="submit">Зарегистрироваться</button>
-            </form>
-        </div>
-    </div>
 
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
