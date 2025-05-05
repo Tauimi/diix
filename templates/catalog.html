@@ -1,92 +1,72 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог</title>
+    <title>Каталог товаров</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header>
-        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
-        <nav>
-            <ul>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/catalog">Каталог</a></li>
-                <li><a href="/about">О нас</a></li>
-                <li><a href="/faq">Частые вопросы</a></li>
-            </ul>
-        </nav>
-        <div class="cart">
-            <a href="/cart">Корзина ({{ cart_items|length }})</a>
-        </div>
-        <div class="login" onclick="openModal('loginModal')">Вход</div>
-        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
-    </header>
-
-    <section class="filter">
-        <form action="/catalog" method="GET">
+    {% include 'header.html' %}
+    
+    <div class="filters">
+        <h3>Фильтры</h3>
+        <div class="filter-category">
             <label for="category">Категория:</label>
-            <select name="category" id="category">
-                <option value="all">Все товары</option>
+            <select id="category" class="filter-select">
+                <option value="all">Все</option>
+                <option value="smartphones">Смартфоны</option>
+                <option value="laptops">Ноутбуки</option>
                 <option value="tv">Телевизоры</option>
-                <option value="fridge">Холодильники</option>
-                <option value="washing_machine">Стиральные машины</option>
             </select>
-
-            <label for="sort">Сортировать по:</label>
-            <select name="sort" id="sort">
-                <option value="price_asc">Цена: по возрастанию</option>
-                <option value="price_desc">Цена: по убыванию</option>
-                <option value="name_asc">По имени: A-Z</option>
-                <option value="name_desc">По имени: Z-A</option>
+        </div>
+        <div class="filter-price">
+            <label for="price">Сортировать по цене:</label>
+            <select id="price" class="filter-select">
+                <option value="asc">От дешевых к дорогим</option>
+                <option value="desc">От дорогих к дешевым</option>
             </select>
-
-            <label for="search">Поиск:</label>
-            <input type="text" name="search" id="search" placeholder="Поиск по названию" value="{{ search_query }}">
-
-            <button type="submit">Применить</button>
-        </form>
-    </section>
-
-    <section class="products">
-        <h2>Наши товары</h2>
-        <ul>
-            {% for product in products %}
-                <li>
-                    <a href="{{ url_for('product_detail', product_id=product['id']) }}">
-                        <img src="{{ url_for('static', filename='images/product.jpg') }}" alt="{{ product['name'] }}">
-                        <h3>{{ product['name'] }}</h3>
-                        <p>{{ product['description'] }}</p>
-                        <p>Цена: {{ product['price'] }} руб</p>
-                    </a>
-                    <button onclick="addToCart({{ product['id'] }})">Добавить в корзину</button>
-                </li>
-            {% endfor %}
-        </ul>
-    </section>
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div class="modal-header">
-                <h2 id="productName">Название товара</h2>
-            </div>
-            <div class="modal-body">
-                <p id="productDescription">Описание товара</p>
-                <p id="productPrice">Цена товара</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="addToCart(currentProduct.id)">Добавить в корзину</button>
-            </div>
         </div>
     </div>
     
+    <section class="products">
+        <h2>Каталог товаров</h2>
+        <ul id="product-list">
+            <!-- Пример товара -->
+            <li class="product-item" data-category="smartphones" data-price="69990">
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/smartphone.jpg') }}" alt="Смартфон">
+                    <h3>Смартфон Galaxy S21</h3>
+                    <p>Описание: Смартфон с отличной камерой и экраном. Идеален для любителей мобильных технологий.</p>
+                    <p>Цена: 69990 руб</p>
+                </div>
+                <button onclick="addToCart(1)">Добавить в корзину</button>
+            </li>
+            <li class="product-item" data-category="laptops" data-price="89990">
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/laptop.jpg') }}" alt="Ноутбук">
+                    <h3>Ноутбук Dell XPS 13</h3>
+                    <p>Описание: Легкий и мощный ноутбук для работы и развлечений с великолепным дисплеем.</p>
+                    <p>Цена: 89990 руб</p>
+                </div>
+                <button onclick="addToCart(2)">Добавить в корзину</button>
+            </li>
+            <li class="product-item" data-category="tv" data-price="49990">
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/tv.jpg') }}" alt="Телевизор">
+                    <h3>Телевизор Samsung QLED 55"</h3>
+                    <p>Описание: Отличный телевизор с невероятной цветопередачей и высоким качеством изображения.</p>
+                    <p>Цена: 49990 руб</p>
+                </div>
+                <button onclick="addToCart(3)">Добавить в корзину</button>
+            </li>
+        </ul>
+    </section>
 
-    <!-- Вставляем футер -->
     {% include 'footer.html' %}
-
-    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/catalog.js') }}"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,79 +7,66 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header>
-        <div class="logo" onclick="window.location.href = '/'">
-            <span>SmartBox</span>
+    {% include 'header.html' %}
+    
+    <!-- Новостная лента (Карусель) -->
+    <section class="news-carousel">
+        <div class="news-container">
+            <div class="news-item">
+                <h3>Новость 1: Специальное предложение на новый смартфон</h3>
+                <p>Не упустите шанс купить новейший смартфон со скидкой 20%! Только в нашем магазине.</p>
+            </div>
+            <div class="news-item">
+                <h3>Новость 2: Сезонные скидки на бытовую технику</h3>
+                <p>До конца месяца скидки на холодильники, стиральные машины и другую бытовую технику.</p>
+            </div>
+            <div class="news-item">
+                <h3>Новость 3: Новинки в мире электроники</h3>
+                <p>Мы обновили наш ассортимент и добавили новые модели телевизоров и акустических систем.</p>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/catalog">Каталог</a></li>
-                <li><a href="/about">О нас</a></li>
-                <li><a href="/faq">Частые вопросы</a></li>
-            </ul>
-        </nav>
-        <div class="cart">
-            <a href="/cart">Корзина ({{ cart_items|length }})</a>
-        </div>
-        <div class="login" onclick="openModal('loginModal')">Вход</div>
-        <div class="register" onclick="openModal('registerModal')">Регистрация</div>
-    </header>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </section>
 
+    <!-- Раздел с товарами -->
     <section class="products">
         <h2>Наши товары</h2>
         <ul>
-            {% for product in products %}
-                <li>
-                    <div class="product-container" onclick="showProductDetails({{ product['id'] }})">
-                        <img src="{{ url_for('static', filename='images/product.jpg') }}" alt="{{ product['name'] }}">
-                        <h3>{{ product['name'] }}</h3>
-                        <p>{{ product['description'] }}</p>
-                        <p>Цена: {{ product['price'] }} руб</p>
-                    </div>
-                    <button onclick="addToCart({{ product['id'] }})">Добавить в корзину</button>
-                </li>
-            {% endfor %}
+            <li>
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/smartphone.jpg') }}" alt="Смартфон">
+                    <h3>Смартфон Galaxy S21</h3>
+                    <p>Описание: Смартфон с отличной камерой и экраном. Идеален для любителей мобильных технологий.</p>
+                    <p>Цена: 69990 руб</p>
+                </div>
+                <button onclick="addToCart(1)">Добавить в корзину</button>
+            </li>
+            <li>
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/laptop.jpg') }}" alt="Ноутбук">
+                    <h3>Ноутбук Dell XPS 13</h3>
+                    <p>Описание: Легкий и мощный ноутбук для работы и развлечений с великолепным дисплеем.</p>
+                    <p>Цена: 89990 руб</p>
+                </div>
+                <button onclick="addToCart(2)">Добавить в корзину</button>
+            </li>
+            <li>
+                <div class="product-container">
+                    <img src="{{ url_for('static', filename='images/tv.jpg') }}" alt="Телевизор">
+                    <h3>Телевизор Samsung QLED 55"</h3>
+                    <p>Описание: Отличный телевизор с невероятной цветопередачей и высоким качеством изображения.</p>
+                    <p>Цена: 49990 руб</p>
+                </div>
+                <button onclick="addToCart(3)">Добавить в корзину</button>
+            </li>
         </ul>
     </section>
- <!-- Модальное окно для товара -->
- <div id="productModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <div class="modal-header">
-            <h2 id="productName">Название товара</h2>
-        </div>
-        <div class="modal-body">
-            <p id="productDescription">Описание товара</p>
-            <p id="productPrice">Цена товара</p>
-        </div>
-        <div class="modal-footer">
-            <button onclick="addToCart(currentProduct.id)">Добавить в корзину</button>
-        </div>
-    </div>
-</div>
 
-    <section class="news">
-        <h2>Новостная лента</h2>
-        <div class="news-carousel">
-            <div class="news-container">
-                {% for item in news %}
-                    <div class="news-item">
-                        <h3>{{ item.title }}</h3>
-                        <p>{{ item.content }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-            <button class="next" onclick="moveSlide(1)">&#10095;</button>
-        </div>
-    </section>
-
-    <!-- Вставляем футер -->
     {% include 'footer.html' %}
-
-    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    
     <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/newsCarousel.js') }}"></script>
 </body>
 </html>

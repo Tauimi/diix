@@ -1,25 +1,24 @@
+let currentIndex = 0;
 
-let currentSlide = 0;
+const newsItems = document.querySelectorAll('.news-item');
+const totalItems = newsItems.length;
 
-function moveSlide(direction) {
-    const slides = document.querySelectorAll('.news-item');
-    const totalSlides = slides.length;
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
 
-    currentSlide += direction;
-
-    if (currentSlide < 0) {
-        currentSlide = totalSlides - 1; // Перемещаем в конец
-    }
-
-    if (currentSlide >= totalSlides) {
-        currentSlide = 0; // Перемещаем в начало
-    }
-
-    const newTransformValue = -currentSlide * 100;
-    document.querySelector('.news-container').style.transform = `translateX(${newTransformValue}%)`;
+function updateCarousel() {
+    const offset = -currentIndex * 100;
+    document.querySelector('.news-container').style.transform = `translateX(${offset}%)`;
 }
 
-// Автоматическое переключение слайдов каждые 5 секунд
-setInterval(() => {
-    moveSlide(1);
-}, 5000);
+prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+    updateCarousel();
+});
+
+nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+    updateCarousel();
+});
+
+updateCarousel();

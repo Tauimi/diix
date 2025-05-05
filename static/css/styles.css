@@ -1,30 +1,33 @@
-
+/* Основные стили для сайта */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    color: #333;
 }
 
+/* Заголовки */
+h1, h2, h3, h4 {
+    font-family: Helvetica, sans-serif;
+    color: #0044cc; /* Цвет заголовков */
+}
+
+/* Шапка */
 header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
-    background: linear-gradient(45deg, #0044cc, #00ccff);
-    color: white;
     align-items: center;
+    background-color: #0044cc;
+    color: white;
+    padding: 20px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 header .logo span {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-header .logo span:hover {
-    transform: scale(1.1);
 }
 
 header nav ul {
@@ -34,34 +37,35 @@ header nav ul {
 }
 
 header nav ul li {
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 header nav ul li a {
     color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+    transition: 0.3s ease;
 }
 
 header nav ul li a:hover {
     color: #ffcc00;
-    transform: translateY(-2px);
 }
 
-header .cart, header .login, header .register {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
+/* Кнопки */
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-header .cart:hover, header .login:hover, header .register:hover {
-    color: #ffcc00;
-    transform: scale(1.1);
+button:hover {
+    background-color: #218838;
 }
 
-/* Модальное окно */
+/* Модальные окна */
 .modal {
     display: none;
     position: fixed;
@@ -71,7 +75,6 @@ header .cart:hover, header .login:hover, header .register:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    overflow: auto;
     padding-top: 60px;
 }
 
@@ -83,12 +86,6 @@ header .cart:hover, header .login:hover, header .register:hover {
     width: 80%;
     max-width: 500px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.modal-header {
-    font-size: 24px;
-    font-weight: bold;
 }
 
 .modal-close {
@@ -99,29 +96,38 @@ header .cart:hover, header .login:hover, header .register:hover {
     cursor: pointer;
 }
 
-.modal-close:hover,
-.modal-close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+/* Карточки товаров */
+.product-container {
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.modal-body {
-    margin-top: 20px;
+.product-container h3 {
+    font-size: 18px;
+    color: #333;
 }
 
-.modal-footer {
-    text-align: right;
-    margin-top: 20px;
+.product-container p {
+    font-size: 14px;
+    color: #555;
 }
 
-/* Стиль для карусели новостей */
+.product-container img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* Карусель новостей */
 .news-carousel {
     position: relative;
-    overflow: hidden;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .news-container {
@@ -175,13 +181,126 @@ header .cart:hover, header .login:hover, header .register:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Стиль для адаптивности */
-@media (max-width: 768px) {
-    .news-item h3 {
-        font-size: 20px;
-    }
-    
-    .news-item p {
-        font-size: 14px;
-    }
+/* Стили для футера */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+footer .footer-left,
+footer .footer-right {
+    flex: 1;
+    padding: 10px;
+}
+
+footer p {
+    font-size: 16px;
+}
+
+footer .footer-right ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-right ul li {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+footer .footer-right .social-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer .footer-right .social-links a:hover {
+    text-decoration: underline;
+}
+
+footer p:last-child {
+    font-size: 18px;
+    font-weight: bold;
+}
+/* Стили для фильтров */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.filter-category,
+.filter-price {
+    display: flex;
+    align-items: center;
+}
+
+.filter-category label,
+.filter-price label {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.filter-select {
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Стили для товаров */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-item {
+    width: 30%;
+    margin: 10px 0;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.product-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-container h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.product-container p {
+    font-size: 16px;
+    color: #555;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
 }
