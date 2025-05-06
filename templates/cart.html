@@ -1,34 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина покупок</title>
+    <title>Корзина</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header>
-        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
-        <div class="cart" onclick="window.location.href = '/cart'">Корзина ({{ cart_products|length }})</div>
-        <div class="login" onclick="window.location.href = '/login'">Вход</div>
-    </header>
+    {% include 'header.html' %}
 
-    <section class="cart-items">
-        <h2>Ваши товары</h2>
-        <ul>
-            {% for product in cart_products %}
-                <li>
-                    <h3>{{ product['name'] }}</h3>
-                    <p>Цена: {{ product['price'] }} руб</p>
-                </li>
-            {% endfor %}
-        </ul>
-        <p><a href="/">Продолжить покупки</a></p>
-    </section>
+    <main class="cart-page">
+        <h2>Ваша Корзина</h2>
 
-    <footer>
-        <p>Все права защищены</p>
-    </footer>
+        {% if cart_products %}
+            <div class="cart-items-container">
+                {% for product in cart_products %}
+                    <div class="cart-item" data-product-id="{{ product.id }}">
+                        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+                        <div class="cart-item-details">
+                            <h3>{{ product.name }}</h3>
+                            <p>Цена: {{ product.price }} руб</p>
+                            <!-- Можно добавить кнопку удаления или изменения количества -->
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="cart-summary">
+                <p>Всего товаров: {{ cart_products|length }}</p>
+                <!-- Можно добавить общую стоимость -->
+            </div>
+        {% else %}
+            <div class="cart-empty">
+                <p>Ваша корзина пуста.</p>
+                <a href="{{ url_for('catalog') }}">Перейти в каталог</a>
+            </div>
+        {% endif %}
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <!-- Возможно, понадобится отдельный JS для логики корзины (удаление, количество) -->
+    <!-- <script src="{{ url_for('static', filename='js/cartPage.js') }}"></script> -->
 </body>
 </html>

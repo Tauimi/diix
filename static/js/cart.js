@@ -4,14 +4,20 @@ function addToCart(productId) {
     })
     .then(response => response.json())
     .then(data => {
-        updateCart(data.cartItems);
+        if (data.cartItemsCount !== undefined) {
+            updateCartCount(data.cartItemsCount);
+        } else if (data.error) {
+            console.error('Ошибка: ', data.error);
+        }
     })
     .catch(error => {
         console.error('Ошибка при добавлении товара в корзину:', error);
     });
 }
 
-function updateCart(cartItems) {
-    const cartCount = document.querySelector('.cart-count');
-    cartCount.textContent = `Корзина (${cartItems.length})`;
+function updateCartCount(count) {
+    const cartCountSpan = document.querySelector('.cart-count');
+    if (cartCountSpan) {
+        cartCountSpan.textContent = count; // Обновляем только число
+    }
 }
