@@ -10,6 +10,9 @@ body {
     background-color: #f8f9fa; /* Lighter background */
     color: #343a40; /* Darker text for better contrast */
     line-height: 1.6;
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
 }
 
 .container {
@@ -120,6 +123,7 @@ header .user-info a:hover {
 /* Main Content Area */
 main {
     padding: 20px 0; /* Vertical padding for main sections */
+    flex-grow: 1; /* Allow main content to grow and push footer down */
 }
 
 section {

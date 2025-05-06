@@ -20,19 +20,22 @@
                         <div class="cart-item-details">
                             <h3>{{ product.name }}</h3>
                             <p>Цена: {{ product.price }} руб</p>
-                            <!-- Можно добавить кнопку удаления или изменения количества -->
+                            <p>Количество: {{ product.quantity }}</p>
+                            <p>Сумма: {{ product.total_item_price }} руб</p>
+                            <!-- TODO: Add buttons to change quantity / remove item -->
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <div class="cart-summary">
-                <p>Всего товаров: {{ cart_products|length }}</p>
-                <!-- Можно добавить общую стоимость -->
+                <p>Общая стоимость: {{ total_price }} руб</p>
+                <p>Всего товаров (включая количество): {{ cart_items_count }}</p>
+                <!-- TODO: Add checkout button -->
             </div>
         {% else %}
             <div class="cart-empty">
                 <p>Ваша корзина пуста.</p>
-                <a href="{{ url_for('catalog') }}">Перейти в каталог</a>
+                <a href="{{ url_for('catalog') }}" class="button">Перейти в каталог</a>
             </div>
         {% endif %}
     </main>
