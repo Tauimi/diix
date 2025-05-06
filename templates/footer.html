@@ -1,22 +1,30 @@
 <footer>
     <div class="container">
-        <div class="footer-left">
-            <p>&copy; 2025 Электроника и Бытовая Техника | Все права защищены</p>
-            <p>Количество уникальных посетителей: {{ visitor_count }}</p>
+        <div class="footer-column footer-left">
+             <h4>О Компании</h4>
+            <p>&copy; {{ current_year }} SmartBox | Все права защищены</p>
+            <p>Магазин электроники и бытовой техники.</p>
+            <p>Уникальных посетителей: {{ visitor_count }}</p>
         </div>
-        <div class="footer-right">
-            <p>Контактная информация:</p>
+        <div class="footer-column footer-contact">
+             <h4>Контакты</h4>
             <ul>
                 <li><strong>Телефон:</strong> +7 (800) 555-35-35</li>
                 <li><strong>Email:</strong> info@smartbox.com</li>
                 <li><strong>Адрес:</strong> Москва, ул. Примерная, д. 10</li>
             </ul>
-            <p>Подписывайтесь на нас:</p>
+        </div>
+        <div class="footer-column footer-social">
+            <h4>Подписывайтесь</h4>
             <div class="social-links">
-                <a href="https://facebook.com" target="_blank">Facebook</a> |
-                <a href="https://twitter.com" target="_blank">Twitter</a> |
-                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <!-- Replace # with actual links if available -->
+                <a href="#" target="_blank" aria-label="Facebook">FB</a> | 
+                <a href="#" target="_blank" aria-label="Twitter">TW</a> | 
+                <a href="#" target="_blank" aria-label="Instagram">IG</a>
             </div>
         </div>
+    </div>
+    <div class="footer-bottom">
+         <!-- Can add extra bottom text here if needed -->
     </div>
 </footer>

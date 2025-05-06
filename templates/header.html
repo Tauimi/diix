@@ -13,13 +13,13 @@
     
     <div class="user-info">
         {% if username %}
-            <span>Добро пожаловать, {{ username }}</span>
-            <a href="/logout" class="auth-link">Выход</a>
-            <a href="/cart" class="cart-link">Корзина (<span class="cart-count">{{ cart_items_count }}</span>)</a>
+            <span>Добро пожаловать, <a href="{{ url_for('profile') }}">{{ username }}</a>!</span>
+            <a href="{{ url_for('logout') }}" class="auth-link">Выход</a>
+            <a href="{{ url_for('cart') }}" class="cart-link">Корзина (<span class="cart-count">{{ cart_items_count }}</span>)</a>
         {% else %}
-            <div class="login auth-link" onclick="openModal('loginModal')">Вход</div>
-            <div class="register auth-link" onclick="openModal('registerModal')">Регистрация</div>
-            <a href="/cart" class="cart-link">Корзина (<span class="cart-count">{{ cart_items_count }}</span>)</a>
+            <a href="{{ url_for('login') }}" class="auth-link">Вход</a>
+            <a href="{{ url_for('register') }}" class="auth-link">Регистрация</a>
+            <a href="{{ url_for('cart') }}" class="cart-link">Корзина (<span class="cart-count">{{ cart_items_count }}</span>)</a>
         {% endif %}
     </div>
 </header>
