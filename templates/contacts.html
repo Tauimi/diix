@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <meta name="description" content="Контактная информация интернет-магазина SmartBox.">
+    <meta name="keywords" content="контакты, адрес, телефон, карта, SmartBox">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <main class="contacts-page">
+        <h2>Контакты</h2>
+        <p><strong>Телефон:</strong> +7 (800) 555-35-35</p>
+        <p><strong>Email:</strong> info@smartbox.com</p>
+        <p><strong>Адрес:</strong> Москва, ул. Примерная, д. 10</p>
+        <div style="margin: 20px 0;">
+            <!-- Пример Яндекс.Карты, замените src на свой при необходимости -->
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1b2e3c4d5f6g7h8i9j0k&source=constructor" width="100%" height="300" frameborder="0"></iframe>
+        </div>
+        <a href="{{ url_for('feedback') }}" class="button">Форма обратной связи</a>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html> 

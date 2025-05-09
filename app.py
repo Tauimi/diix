@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import hashlib
 import datetime # Import datetime
+import os
+import smtplib
+from email.mime.text import MIMEText
+from math import ceil
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Для использования сессий
@@ -113,8 +117,38 @@ def profile():
 @app.route('/catalog')
 def catalog():
     context = get_context()
-    # Передаем товары в шаблон каталога
-    return render_template('catalog.html', products=products_db.values(), **context)
+    products = list(products_db.values())
+
+    # Фильтрация
+    category = request.args.get('category')
+    if category and category != 'all':
+        products = [p for p in products if p['category'] == category]
+
+    # Сортировка
+    sort = request.args.get('sort')
+    if sort == 'asc':
+        products = sorted(products, key=lambda x: x['price'])
+    elif sort == 'desc':
+        products = sorted(products, key=lambda x: -x['price'])
+
+    # Пагинация
+    per_page = 6
+    page = int(request.args.get('page', 1))
+    total = len(products)
+    pages = ceil(total / per_page)
+    start = (page - 1) * per_page
+    end = start + per_page
+    products_on_page = products[start:end]
+
+    return render_template(
+        'catalog.html',
+        products=products_on_page,
+        page=page,
+        pages=pages,
+        category=category or 'all',
+        sort=sort or '',
+        **context
+    )
 
 # Страница "О нас"
 @app.route('/about')
@@ -154,6 +188,92 @@ def cart():
     cart_product_details = [products_db[item_id] for item_id in session.get('cart', []) if item_id in products_db]
     return render_template('cart.html', cart_products=cart_product_details, **context)
 
+# Страница калькулятора
+@app.route('/calculator')
+def calculator():
+    context = get_context()
+    return render_template('calculator.html', products=products_db.values(), **context)
+
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    context = get_context()
+    success = False
+    error = None
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+
+        # 1. Сохраняем сообщение в файл
+        try:
+            feedback_dir = 'feedback_messages'
+            os.makedirs(feedback_dir, exist_ok=True)
+            with open(os.path.join(feedback_dir, 'messages.txt'), 'a', encoding='utf-8') as f:
+                f.write(f"Имя: {name}\nEmail: {email}\nСообщение: {message}\n---\n")
+        except Exception as e:
+            error = "Ошибка при сохранении сообщения."
+            print("Ошибка при сохранении:", e)
+
+        # 2. Отправляем сообщение на email
+        try:
+            msg = MIMEText(f"Имя: {name}\nEmail: {email}\nСообщение: {message}")
+            msg['Subject'] = 'Новое сообщение с формы обратной связи'
+            msg['From'] = 'qqdslk@mail.com'  # Ваш email
+            msg['To'] = 'qqdslk@mail.com'    # Email для получения
+
+            smtp_server = 'smtp.gmail.com'
+            smtp_port = 587
+            smtp_user = 'qqdslk@mail.com'    # Ваш email
+            smtp_password = 'your_app_password'     # Пароль приложения (НЕ обычный пароль!)
+
+            with smtplib.SMTP(smtp_server, smtp_port) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_password)
+                server.send_message(msg)
+        except Exception as e:
+            error = "Ошибка при отправке email."
+            print("Ошибка отправки email:", e)
+
+        if not error:
+            success = True
+
+    return render_template('feedback.html', success=success, error=error, **context)
+
+@app.route('/product/<int:product_id>')
+def product_detail(product_id):
+    context = get_context()
+    product = products_db.get(product_id)
+    if not product:
+        return "Товар не найден", 404
+    return render_template('product_detail.html', product=product, **context)
+
+@app.route('/remove_from_cart/<int:product_id>', methods=['POST'])
+def remove_from_cart(product_id):
+    if 'cart' in session and product_id in session['cart']:
+        session['cart'].remove(product_id)
+        session.modified = True
+    return jsonify({'success': True, 'cartItemsCount': len(session['cart'])})
+
+@app.route('/clear_cart', methods=['POST'])
+def clear_cart():
+    session['cart'] = []
+    session.modified = True
+    return jsonify({'success': True, 'cartItemsCount': 0})
+
+@app.route('/contacts')
+def contacts():
+    context = get_context()
+    return render_template('contacts.html', **context)
+
+@app.route('/delivery')
+def delivery():
+    context = get_context()
+    return render_template('delivery.html', **context)
+
+@app.route('/news')
+def news():
+    context = get_context()
+    return render_template('news.html', **context)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор покупки</title>
+    <meta name="description" content="Калькулятор стоимости покупки в интернет-магазине SmartBox.">
+    <meta name="keywords" content="калькулятор, стоимость, покупка, SmartBox, электроника, бытовая техника">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="calculator-page">
+        <h2>Калькулятор покупки</h2>
+        <form id="calc-form" autocomplete="off">
+            <label for="product">Товар:</label>
+            <select id="product" name="product">
+                {% for product in products %}
+                <option value="{{ product.id }}" data-price="{{ product.price }}">{{ product.name }} ({{ product.price }} руб)</option>
+                {% endfor %}
+            </select>
+
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1">
+
+            <strong>Сумма: <span id="total">0</span> руб</strong>
+        </form>
+        <br>
+        <div>
+            <strong>Посещаемость сайта:</strong> {{ visitor_count }}
+        </div>
+    </main>
+
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+</body>
+</html> 

@@ -5,6 +5,14 @@
             <p>&copy; {{ current_year }} SmartBox | Все права защищены</p>
             <p>Магазин электроники и бытовой техники.</p>
             <p>Уникальных посетителей: {{ visitor_count }}</p>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Главная</a></li>
+                <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
+                <li><a href="{{ url_for('about') }}">О нас</a></li>
+                <li><a href="{{ url_for('faq') }}">Частые вопросы</a></li>
+                <li><a href="{{ url_for('calculator') }}">Калькулятор</a></li>
+                <li><a href="{{ url_for('sitemap') }}">Карта сайта</a></li>
+            </ul>
         </div>
         <div class="footer-column footer-contact">
              <h4>Контакты</h4>

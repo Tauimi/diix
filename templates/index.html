@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Электроника и Бытовая Техника</title>
+    <meta name="description" content="Интернет-магазин электроники и бытовой техники SmartBox. Каталог товаров, корзина, профиль, контакты, карта сайта.">
+    <meta name="keywords" content="электроника, бытовая техника, SmartBox, каталог, корзина, регистрация, профиль, карта сайта, контакты">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -35,8 +37,12 @@
         <ul>
             <li>
                 <div class="product-container">
-                    <img src="{{ url_for('static', filename='images/smartphone.jpg') }}" alt="Смартфон">
-                    <h3>Смартфон Galaxy S21</h3>
+                    <a href="{{ url_for('product_detail', product_id=1) }}">
+                        <img src="{{ url_for('static', filename='images/smartphone.jpg') }}" alt="Смартфон Galaxy S21">
+                    </a>
+                    <h3>
+                        <a href="{{ url_for('product_detail', product_id=1) }}">Смартфон Galaxy S21</a>
+                    </h3>
                     <p>Описание: Смартфон с отличной камерой и экраном. Идеален для любителей мобильных технологий.</p>
                     <p>Цена: 69990 руб</p>
                 </div>
@@ -44,8 +50,12 @@
             </li>
             <li>
                 <div class="product-container">
-                    <img src="{{ url_for('static', filename='images/laptop.jpg') }}" alt="Ноутбук">
-                    <h3>Ноутбук Dell XPS 13</h3>
+                    <a href="{{ url_for('product_detail', product_id=2) }}">
+                        <img src="{{ url_for('static', filename='images/laptop.jpg') }}" alt="Ноутбук Dell XPS 13">
+                    </a>
+                    <h3>
+                        <a href="{{ url_for('product_detail', product_id=2) }}">Ноутбук Dell XPS 13</a>
+                    </h3>
                     <p>Описание: Легкий и мощный ноутбук для работы и развлечений с великолепным дисплеем.</p>
                     <p>Цена: 89990 руб</p>
                 </div>
@@ -53,8 +63,12 @@
             </li>
             <li>
                 <div class="product-container">
-                    <img src="{{ url_for('static', filename='images/tv.jpg') }}" alt="Телевизор">
-                    <h3>Телевизор Samsung QLED 55"</h3>
+                    <a href="{{ url_for('product_detail', product_id=3) }}">
+                        <img src="{{ url_for('static', filename='images/tv.jpg') }}" alt="Телевизор Samsung QLED 55&quot;">
+                    </a>
+                    <h3>
+                        <a href="{{ url_for('product_detail', product_id=3) }}">Телевизор Samsung QLED 55"</a>
+                    </h3>
                     <p>Описание: Отличный телевизор с невероятной цветопередачей и высоким качеством изображения.</p>
                     <p>Цена: 49990 руб</p>
                 </div>

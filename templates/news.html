@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости</title>
+    <meta name="description" content="Новости и акции интернет-магазина SmartBox.">
+    <meta name="keywords" content="новости, акции, SmartBox">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <main class="news-page">
+        <h2>Новости и акции</h2>
+        <ul>
+            <li><strong>01.06.2024:</strong> Летняя распродажа! Скидки до 30% на смартфоны.</li>
+            <li><strong>15.05.2024:</strong> Бесплатная доставка при заказе от 20 000 руб.</li>
+            <li><strong>01.05.2024:</strong> Открытие нового пункта самовывоза в Санкт-Петербурге.</li>
+        </ul>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html> 

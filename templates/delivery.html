@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доставка и оплата</title>
+    <meta name="description" content="Условия доставки и оплаты в интернет-магазине SmartBox.">
+    <meta name="keywords" content="доставка, оплата, условия, SmartBox">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <main class="delivery-page">
+        <h2>Доставка и оплата</h2>
+        <h3>Доставка</h3>
+        <ul>
+            <li>Курьером по Москве — 1-2 дня, 500 руб.</li>
+            <li>Почтой по России — 3-7 дней, 700 руб.</li>
+            <li>Самовывоз — бесплатно.</li>
+        </ul>
+        <h3>Оплата</h3>
+        <ul>
+            <li>Банковской картой онлайн</li>
+            <li>Наложенный платеж</li>
+            <li>Электронные деньги</li>
+        </ul>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html> 

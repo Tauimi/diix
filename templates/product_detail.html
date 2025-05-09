@@ -1,27 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Детали товара</title>
+    <meta name="description" content="Детальная информация о товаре в интернет-магазине SmartBox.">
+    <meta name="keywords" content="товар, детали, SmartBox, купить, описание, цена">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header>
-        <div class="logo" onclick="window.location.href = '/'">Логотип</div>
-        <div class="cart" onclick="window.location.href = '/cart'">Корзина (0)</div>
-        <div class="login" onclick="window.location.href = '/login'">Вход</div>
-    </header>
+    {% include 'header.html' %}
 
     <section class="product-details">
-        <h2>{{ product['name'] }}</h2>
-        <p>{{ product['description'] }}</p>
-        <p>Цена: {{ product['price'] }} руб</p>
+        <h2>{{ product.name }}</h2>
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" style="max-width:300px;">
+        <p>{{ product.description }}</p>
+        <p>Цена: {{ product.price }} руб</p>
+        <button onclick="addToCart({{ product.id }})">Добавить в корзину</button>
     </section>
 
-    <footer>
-        <p>Все права защищены</p>
-    </footer>
+    {% include 'footer.html' %}
 </body>
 </html>

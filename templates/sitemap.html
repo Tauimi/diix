@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта сайта</title>
+    <meta name="description" content="Карта сайта SmartBox: все страницы и разделы интернет-магазина электроники и бытовой техники.">
+    <meta name="keywords" content="карта сайта, sitemap, SmartBox, каталог, корзина, контакты, о нас, FAQ, доставка, оплата, новости, обратная связь">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="sitemap-page">
+        <h2>Карта сайта</h2>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Главная</a></li>
+            <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
+            <li><a href="{{ url_for('cart') }}">Корзина</a></li>
+            <li><a href="{{ url_for('about') }}">О нас</a></li>
+            <li><a href="{{ url_for('faq') }}">Частые вопросы</a></li>
+            <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+            <li><a href="{{ url_for('login') }}">Вход</a></li>
+            <li><a href="{{ url_for('profile') }}">Профиль</a></li>
+            <li><a href="{{ url_for('calculator') }}">Калькулятор</a></li>
+            <li><a href="{{ url_for('contacts') }}">Контакты</a></li>
+            <li><a href="{{ url_for('delivery') }}">Доставка и оплата</a></li>
+            <li><a href="{{ url_for('news') }}">Новости</a></li>
+            <li><a href="{{ url_for('feedback') }}">Обратная связь</a></li>
+            <li><a href="{{ url_for('sitemap') }}">Карта сайта</a></li>
+            <li><a href="{{ url_for('product_detail', product_id=1) }}">Детали товара (пример)</a></li>
+        </ul>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html> 

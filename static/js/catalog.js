@@ -37,8 +37,17 @@ function filterProducts() {
 }
 
 // Инициализация событий для фильтров
-document.getElementById('category').addEventListener('change', filterProducts);
-document.getElementById('price').addEventListener('change', filterProducts);
+document.getElementById('category').addEventListener('change', updateCatalogUrl);
+document.getElementById('price').addEventListener('change', updateCatalogUrl);
+
+function updateCatalogUrl() {
+    const category = document.getElementById('category').value;
+    const price = document.getElementById('price').value;
+    let url = '/catalog?';
+    if (category !== 'all') url += 'category=' + encodeURIComponent(category) + '&';
+    if (price) url += 'sort=' + encodeURIComponent(price) + '&';
+    window.location.href = url;
+}
 
 // Инициализируем фильтрацию при загрузке страницы
 filterProducts();

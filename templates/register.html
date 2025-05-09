@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
+    <meta name="description" content="Регистрация нового пользователя в интернет-магазине SmartBox.">
+    <meta name="keywords" content="регистрация, SmartBox, создать аккаунт, магазин, пользователь">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Используем те же стили, что и для логина -->
 </head>
@@ -32,5 +34,6 @@
     </main>
 
     {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
 </body>
 </html> 

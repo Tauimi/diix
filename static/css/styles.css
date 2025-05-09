@@ -49,12 +49,41 @@ button, .button {
     cursor: pointer;
     font-size: 16px;
     text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover, .button:hover {
     background-color: #218838;
     text-decoration: none; /* Remove underline on hover for buttons */
+    transform: scale(1.05);
+}
+
+/* Remove/clear cart buttons (custom) */
+.remove-item {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.remove-item:hover {
+    background: #b71c1c;
+}
+#clear-cart {
+    background: #343a40;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 22px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#clear-cart:hover {
+    background: #212529;
 }
 
 /* Header */
@@ -220,15 +249,21 @@ section h2 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s, transform 0.6s;
     height: 100%; /* Make container fill the grid cell height */
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Distribute content vertically */
+    opacity: 0;
+    transform: translateY(30px);
+}
+.product-container.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .product-container:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.03);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -309,6 +344,34 @@ section h2 {
 .product-item {
     /* Styles moved to .product-container */
     /* Ensure list item takes full height if needed */
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    gap: 8px;
+}
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+    background: #e9ecef;
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.pagination a:hover {
+    background: #0056b3;
+    color: #fff;
+}
+.pagination .current {
+    background: #28a745;
+    color: #fff;
+    font-weight: bold;
 }
 
 /* Footer */
@@ -444,74 +507,82 @@ footer .footer-bottom {
     font-weight: bold;
 }
 
-/* Authentication Form Styles */
-.auth-form {
-    max-width: 450px; /* Slightly wider form */
+/* Calculator Page Styles */
+.calculator-page {
+    max-width: 500px;
     margin: 40px auto;
-    padding: 40px; /* More padding */
-    background-color: #fff;
+    padding: 30px;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: center;
 }
-
-.auth-form h2 {
+.calculator-page h2 {
     margin-bottom: 25px;
-    color: #333;
-    font-weight: 600; /* Bolder heading */
+    color: #0056b3;
 }
-
-.auth-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600; /* Bolder labels */
-    color: #555;
-    text-align: left;
+#calc-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.auth-form input[type="text"],
-.auth-form input[type="password"] {
-    width: 100%;
-    padding: 12px; /* More padding */
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+#calc-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+#calc-form select, #calc-form input[type="number"] {
+    width: 220px;
+    padding: 8px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da;
     border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
-.auth-form input[type="text"]:focus,
-.auth-form input[type="password"]:focus {
-    border-color: #0056b3;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
-}
-
-.auth-form button {
-    width: 100%;
-    padding: 12px; /* Match input padding */
-}
-
-.error-message {
-    color: #dc3545;
-    margin-bottom: 15px;
-    font-size: 14px;
-    text-align: left;
-}
-
-.switch-auth {
-    margin-top: 25px;
     font-size: 15px;
 }
-
-.switch-auth a {
-    color: #0056b3;
-    text-decoration: none;
-    font-weight: 600;
+#calc-form strong {
+    font-size: 18px;
+    color: #28a745;
 }
 
-.switch-auth a:hover {
-    text-decoration: underline;
+/* Feedback Form Styles */
+.feedback-page {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.feedback-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.feedback-form input,
+.feedback-form textarea {
+    padding: 8px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 15px;
+}
+.feedback-form button {
+    width: 100%;
+}
+.success-message {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.error-message {
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* Profile Page Styles */
@@ -688,4 +759,9 @@ footer .footer-bottom {
         margin: 0 5px;
         font-size: 16px;
     }
+}
+
+/* Плавная прокрутка */
+html {
+    scroll-behavior: smooth;
 }

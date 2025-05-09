@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь</title>
+    <meta name="description" content="Форма обратной связи с интернет-магазином SmartBox.">
+    <meta name="keywords" content="обратная связь, контакт, SmartBox, сообщение, форма">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <main class="feedback-page">
+        <h2>Форма обратной связи</h2>
+        {% if success %}
+            <p class="success-message">Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.</p>
+        {% endif %}
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+        <form method="POST" action="{{ url_for('feedback') }}" class="feedback-form">
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Ваш email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Сообщение:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Отправить</button>
+        </form>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html> 
